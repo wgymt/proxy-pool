@@ -1,4 +1,4 @@
-# proxy-pool
+# ProxyPool4j
 代理池Java实现
 
 # 主要参考了两位大神的作品：
