@@ -46,7 +46,6 @@ public class ProxyFetcherServiceImpl implements ProxyFetcherService {
             try {
                 ips.addAll(submit.get());
             } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
                 logger.error("抓取过程出错: " + e);
             }
         }

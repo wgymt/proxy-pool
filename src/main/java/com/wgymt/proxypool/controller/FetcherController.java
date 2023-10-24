@@ -28,8 +28,7 @@ public class FetcherController {
         try {
             return proxyFetcherService.getProxies().toString();
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("获取代理ip失败");
+            throw new RuntimeException("获取代理ip失败", e);
         }
     }
 

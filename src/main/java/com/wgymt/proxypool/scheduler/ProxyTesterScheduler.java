@@ -105,20 +105,20 @@ public class ProxyTesterScheduler {
         List<String> validLogs = Collections.synchronizedList(new ArrayList<>(1000));
         List<String> invalidLogs = Collections.synchronizedList(new ArrayList<>(1000));
         for (List<String> ipList : ipsList) {
-            for (String ip : ipList) {
-                // 多个代理ip异步发送测试请求
-                TesterThreadPool.getThreadPool().execute(() -> {
-                    Boolean isPassed = testProxyIp(ip);
-                    if (isPassed) {
-                        validIps.add(ip);
-                        validLogs.add("validIp: " + ip);
-                    } else {
-                        invalidIps.add(ip);
-                        invalidLogs.add("invalidIp: " + ip);
-                    }
-                });
-            }
             try {
+                for (String ip : ipList) {
+                    // 多个代理ip异步发送测试请求
+                    TesterThreadPool.getThreadPool().execute(() -> {
+                        Boolean isPassed = testProxyIp(ip);
+                        if (isPassed) {
+                            validIps.add(ip);
+                            validLogs.add("validIp: " + ip);
+                        } else {
+                            invalidIps.add(ip);
+                            invalidLogs.add("invalidIp: " + ip);
+                        }
+                    });
+                }
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -133,7 +133,6 @@ public class ProxyTesterScheduler {
         try {
             latch.await();
         } catch (InterruptedException e) {
-            e.printStackTrace();
             logger.error("CountDownLatch await 异常" + e);
         }
 
@@ -168,7 +167,6 @@ public class ProxyTesterScheduler {
                 return Boolean.TRUE;
             }
         } catch (IOException e) {
-            e.printStackTrace();
             logger.error("ip有效性测试失败: " + e);
         }
 

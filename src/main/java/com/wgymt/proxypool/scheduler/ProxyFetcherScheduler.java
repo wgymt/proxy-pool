@@ -37,7 +37,6 @@ public class ProxyFetcherScheduler {
             List<String> proxies = proxyFetcherService.getProxies();
             logger.info("自动获取代理ip成功: 数量为: {}", proxies.size());
         } catch (IOException e) {
-            e.printStackTrace();
             logger.error("自动抓取代理ip失败: " + e);
         }
         logger.info("=============== 代理ip抓取结束 ==================");
